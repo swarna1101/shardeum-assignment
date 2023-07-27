@@ -5,7 +5,7 @@
 
 
 
-- All the scripts and solutions are part of the [scripts](https://github.com/swarna1101/shardeum-assignment/main/scripts) folder.
+- All the scripts and solutions are part of the [scripts](https://github.com/swarna1101/shardeum-assignment/tree/main/scripts) folder.
 - Every problem statement has a **.js** file which contains the solution for the problem along with the detailed comments and logs.
 - Every problem statement also has a **.approach** file which contains detailed explanation on the thought process, some notes and explorer links the deployed contracts and their transactions.
 - Some problem statement also contains some additonal files and the details for these have been covered in the notes.
