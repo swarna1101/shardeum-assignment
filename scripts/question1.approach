@@ -1,0 +1,62 @@
+Console Output -
+Factory deployment transaction - 0x4eec82ffae3d4789d2255b4fd725967f92991fbb84c7d50637607087e073abfc
+UniswapV2 Factory deployed at: 0x6537f4f568159B7b42E7878915b1f104b91a9951
+WETH deployment transaction - 0x826ac8f9a8c743d183ee8c4f076bb8d7d0d69e71d2117a0dcd1a6d16b3e6dadc
+WETH deployed at: 0xFF8913c87005cc96dcF8A8C888700D4988D1E8fD
+Router deployment transaction - 0xc697e85f0c299821dcb8e154a7c65babf7b8cbd900a646b5947c59bc5eb564aa
+UniswapV2 Router deployed at: 0x31264Cf10ca059D964f5e4d9236220d826bf33a0
+TokenA deployment transaction - 0x153b35d1b5aa5ca9ed84a6982f3d13965153fd302c43c0e1c8b1f4832a03ff72
+TokenA deployed at: 0x7704937606390cD11Dc4c3902B553e10AaAD9540
+TokenB deployment transaction - 0x496a8eb5a85c5edb00217ebf83cbb8330458009135dbe749b8c75f2ec95809e8
+TokenB deployed at: 0x69D5F6D9EdE8F74Fa1D0245144Bd9628D3115394
+TokenA approval to Router Tx - 0x73e62520a62d9cad14b3ee94e24a91b0d78cd2364a9e26a09fdf45663c74d0d4
+TokenB approval to Router Tx - 0x9d635bd43568078d5fd0380ffc489a026069db53ff68abbb099ae5c190c69044
+Create pair Tx - 0x911eb57a1d9014a038b7a7d72ac08cd28b04fab3365f2f2f912e223ffadc4907
+Pair Address for TokenA and TokenB is 0xD50D3303841f0C7899A0199d7BB9e14867A98E48
+Adding Liquidity Tx - 0xc0370eb21521239f19ca031cae79b44713646fe501299671d6c2bdbd29771d3c
+Swap Tx - 0xc34943cc87d7314f29a9328658d6db88ff7b54ad96859e064421c96427038a12
+
+Approach -
+
+1. Used UniswapV2 core and periphery libraries for importing UniswapV2Factory and Uniswapv2Router02 contracts.
+2. Deployed UniswapV2Factory with the deployer set as the Fee Setter.
+3. UniswapV2 Factory deployed at: https://explorer-dapps.shardeum.org/account/0x6537f4f568159B7b42E7878915b1f104b91a9951
+4. Used canonical WETH package for deploying WETH. (To be used in Router)
+5. WETH deployed at: https://explorer-dapps.shardeum.org/account/0xFF8913c87005cc96dcF8A8C888700D4988D1E8fD
+6. Deployed UniswapV2Router02 with factory and WETH address as params.
+7. UniswapV2 Router deployed at: https://explorer-dapps.shardeum.org/account/0x31264Cf10ca059D964f5e4d9236220d826bf33a0
+8. Deploying TokenA and TokenB. (Basic ERC20 tokens)
+9. TokenA deployed at: https://explorer-dapps.shardeum.org/account/0x7704937606390cD11Dc4c3902B553e10AaAD9540
+10. TokenB deployed at: https://explorer-dapps.shardeum.org/account/0x69D5F6D9EdE8F74Fa1D0245144Bd9628D3115394
+11. Approved both TokenA and TokenB to the UniswapV2Router02
+- TokenA approval to Router Tx - https://explorer-dapps.shardeum.org/transaction/0x73e62520a62d9cad14b3ee94e24a91b0d78cd2364a9e26a09fdf45663c74d0d4
+- TokenB approval to Router Tx - https://explorer-dapps.shardeum.org/transaction/0x9d635bd43568078d5fd0380ffc489a026069db53ff68abbb099ae5c190c69044
+
+12. Created Pair for TokenA and TokenB by using UniswapV2Factory. This is a skippable step.
+13. Added liquidity for TokenA and TokenB -
+    https://explorer-dapps.shardeum.org/transaction/0xc0370eb21521239f19ca031cae79b44713646fe501299671d6c2bdbd29771d3c
+
+14. Built the Swap tx for swapping TokenB to TokenA -
+    https://explorer-dapps.shardeum.org/transaction/0xc34943cc87d7314f29a9328658d6db88ff7b54ad96859e064421c96427038a12
+
+Access Lists -
+
+1. Had a detailed read on Shardeum's guide on EIP-2930 on how it automatically handles the access lists.
+https://shardeum.org/blog/shardeum-automates-eip-2930-seamless-transactions-guide/
+2. Tried to work on a lot of ways to get access lists like by analyzing tx on the used storage slots, web3.getAccessLists
+but nothing provided an conclusive answer.
+3. Used the package mentioned in the above article https://github.com/alexchenzl/predict-al.
+4. Setup hardhat local and passed through the tx hash through this parser.
+5. Built the access list overrides for all the txs.
+6. Kept the access lists because they provided significant savings for the swap and addLiquidity transactions on local network.
+7. Have a basic understanding of access lists due to the demo done above on local network.
+
+Notes -
+
+The transactions kept reverting due to `Error: invalid value for value.gasLimit` or just plain revert.
+This happened to atleast 30 txs and I used atleast 5 wallets to debug this issue, changed and customized everything from ethersJS version,
+and the only way finally it worked was by using hardhat web3.
+The gas limit issue and other multiple issues were also reported in Shardeum discord.
+The transactions were processed without access lists as the transactions both using web3 and ethersJS reverted without reason.
+My conclusion is that Shardeum handles the access list on its end, but would love to know if there is any issue in the code.
+The final code has been reset to the version that deployed this all i.e. using etheresJS

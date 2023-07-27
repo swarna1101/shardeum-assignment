@@ -1,0 +1,19 @@
+Console -
+Upgradeable deployed to: 0x96078AeDaa1E587777E69Ec2f27D664E13DcFb83
+
+Contracts -
+
+Proxy(Upgradeable contract) - https://explorer-dapps.shardeum.org/account/0x96078AeDaa1E587777E69Ec2f27D664E13DcFb83
+Implementation - https://explorer-dapps.shardeum.org/account/0xcc747B8cD13fF6669eeC430414A0AdE63e72dE67
+Proxy Admin - https://explorer-dapps.shardeum.org/account/0x30232cE73712EdD52EA284ED8B4DFA40E5bcC934
+
+Approach -
+
+1. Added openzeppelin upgradeable package and added an upgradeable ERC20 smart contract.
+2. Used openzeppelin hardhat upgrades package to combine with easy deployment of upgradeable contracts.
+3. Added script for deployment of upgradeable smart contract.
+4. Plugin uses deployProxy method to deploy the proxy which would be the permanent address of the smart contract
+5. No other issues were found and no other modifications were needed to be made.
+6. AdminProxy and Implementation contracts were also deployed. So a total of 3 transactions were made.
+7. Tried deployment on mumbai testnet and the same script worked and the same output was resulted by openzeppelin. (See file polygon-mumbai.json)
+8. Deployment logs and addresses have been added as part of result. (See file shardeum-8081.json)

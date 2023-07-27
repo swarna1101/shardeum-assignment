@@ -1,0 +1,11 @@
+Console Output -
+GasHungry deployment transaction - https://explorer-dapps.shardeum.org/transaction/0x29cafde0a6817795425e79d193a54a9aabd0f4d6b4ffd401e13cb9f9dcd64da7
+GasHungry contract deployed at: https://explorer-dapps.shardeum.org/account/0x95106cBd9723662C0992d9C8C704622C3CF99918
+
+Attached Gas report
+
+1. Approach was to check the estimated gas and check the allowed block gas limit.
+2. The transaction and the contract deployment went through without any issue and the transaction receipt showed
+the same gas cost consumed which was calculated in the gas report.
+3. The array was also checked by using a read method in the script if all the numbers were stored in the array till 999 and it was.
+4. The gas report is attached in the same folder.
